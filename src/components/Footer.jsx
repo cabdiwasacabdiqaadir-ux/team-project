@@ -7,7 +7,7 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div>
                         <h3 className="text-xl font-bold mb-4">OpenLib</h3>
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-gray-500 text-sm">
                             Your gateway to a world of knowledge. Explore, read, and grow with our vast collection of books.
                         </p>
                     </div>
