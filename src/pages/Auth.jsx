@@ -1,12 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Auth() {
   const [mode, setMode] = useState('login'); // 'login' or 'signup'
   const [showChoice, setShowChoice] = useState(true);
+  const navigate = useNavigate();
 
-  const [loginData, setLoginData] = useState({ email: '', password: '', remember: false });
-  const [signupData, setSignupData] = useState({ name: '', username: '', email: '', password: '', confirm: '' });
+  const [loginData, setLoginData] = useState({ username: '', password: '', remember: false });
+  const [signupData, setSignupData] = useState({ name: '', username: '', password: '', confirm: '' });
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem('libraryUser'));
+    if (!savedUser) {
+      localStorage.setItem('libraryUser', JSON.stringify({ username: 'raxma', password: '12345' }));
+    }
+  }, []);
 
   function switchMode(m) {
     setErrors({});
@@ -24,44 +33,43 @@ export default function Auth() {
     setSignupData(prev => ({ ...prev, [name]: value }));
   }
 
-  function validateSignup() {
-    const err = {};
-    if (!signupData.name.trim()) err.name = 'Name is required';
-    if (!signupData.username.trim()) err.username = 'Username is required';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(signupData.email)) err.email = 'Valid email required';
-    if (signupData.password.length < 6) err.password = 'Minimum 6 characters';
-    if (signupData.password !== signupData.confirm) err.confirm = 'Passwords must match';
-    return err;
-  }
-
-  function validateLogin() {
-    const err = {};
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginData.email)) err.email = 'Valid email required';
-    if (!loginData.password) err.password = 'Password required';
-    return err;
-  }
-
   function onSubmitSignup(e) {
     e.preventDefault();
-    const err = validateSignup();
-    if (Object.keys(err).length) return setErrors(err);
-    setErrors({});
-    console.log('Sign Up data', signupData);
-    alert('Sign Up submitted — replace with real auth call');
+    // simple validation
+    if (!signupData.username || !signupData.password) {
+      setErrors({ form: 'Fadlan buuxi username iyo password' });
+      return;
+    }
+    if (signupData.password !== signupData.confirm) {
+      setErrors({ form: 'Passwords ma is waafaqaan' });
+      return;
+    }
+
+    const savedUser = JSON.parse(localStorage.getItem('libraryUser'));
+    if (savedUser && savedUser.username === signupData.username) {
+      setErrors({ form: 'Username hore ayuu u diiwaangashan yahay, fadlan login samee' });
+      return;
+    }
+
+    localStorage.setItem('libraryUser', JSON.stringify({ username: signupData.username, password: signupData.password }));
+    localStorage.setItem('isAuth', 'true');
+    navigate('/');
   }
 
   function onSubmitLogin(e) {
     e.preventDefault();
-    const err = validateLogin();
-    if (Object.keys(err).length) return setErrors(err);
-    setErrors({});
-    console.log('Login data', loginData);
-    alert('Login submitted — replace with real auth call');
+    const savedUser = JSON.parse(localStorage.getItem('libraryUser'));
+    if (savedUser && savedUser.username === loginData.username && savedUser.password === loginData.password) {
+      localStorage.setItem('isAuth', 'true');
+      navigate('/');
+    } else {
+      setErrors({ form: 'Username ama Password khaldan' });
+    }
   }
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center py-12">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-md p-6">
+    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+      <div className="w-96 bg-white p-8 rounded-xl shadow">
         {showChoice ? (
           <div className="text-center">
             <h2 className="text-lg font-semibold">Please choose an option to continue:</h2>
@@ -122,7 +130,6 @@ export default function Auth() {
                     className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="Jane Doe"
                   />
-                  {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
                 </div>
 
                 <div>
@@ -134,19 +141,6 @@ export default function Auth() {
                     className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="your-username"
                   />
-                  {errors.username && <p className="text-xs text-red-500 mt-1">{errors.username}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Email</label>
-                  <input
-                    name="email"
-                    value={signupData.email}
-                    onChange={handleSignupChange}
-                    className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="you@example.com"
-                  />
-                  {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
                 </div>
 
                 <div>
@@ -159,7 +153,6 @@ export default function Auth() {
                     className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="Enter a password"
                   />
-                  {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
                 </div>
 
                 <div>
@@ -172,8 +165,9 @@ export default function Auth() {
                     className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="Repeat password"
                   />
-                  {errors.confirm && <p className="text-xs text-red-500 mt-1">{errors.confirm}</p>}
                 </div>
+
+                {errors.form && <p className="text-sm text-red-500">{errors.form}</p>}
 
                 <div className="pt-4">
                   <button
@@ -182,26 +176,20 @@ export default function Auth() {
                     Create account
                   </button>
                 </div>
-
-                <p className="text-center text-sm text-gray-500">
-                  Already have an account?{' '}
-                  <button type="button" className="text-indigo-600 font-medium" onClick={() => switchMode('login')}>
-                    Login
-                  </button>
-                </p>
               </form>
             ) : (
               <form onSubmit={onSubmitLogin} className="space-y-4">
+                {errors.form && <p className="text-sm text-red-500">{errors.form}</p>}
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Email</label>
+                  <label className="block text-sm font-medium text-gray-700">Username</label>
                   <input
-                    name="email"
-                    value={loginData.email}
+                    name="username"
+                    value={loginData.username}
                     onChange={handleLoginChange}
                     className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="you@example.com"
+                    placeholder="username"
                   />
-                  {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
                 </div>
 
                 <div>
@@ -214,26 +202,15 @@ export default function Auth() {
                     className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="Your password"
                   />
-                  {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <label className="flex items-center text-sm">
-                    <input type="checkbox" name="remember" checked={loginData.remember} onChange={handleLoginChange} className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
-                    <span className="ml-2 text-gray-700">Remember me</span>
-                  </label>
-                  <button type="button" className="text-sm text-indigo-600">Forgot?</button>
                 </div>
 
                 <div>
                   <button
                     type="submit"
                     className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                    Sign in
+                    {"Sign in"}
                   </button>
                 </div>
-
-                <p className="text-center text-sm text-gray-500">Don't have an account? <button type="button" className="text-indigo-600 font-medium" onClick={() => switchMode('signup')}>Sign up</button></p>
               </form>
             )}
           </div>

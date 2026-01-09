@@ -15,6 +15,7 @@ import ManageBooks from './pages/ManageBooks';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
 import Auth from './pages/Auth';
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 
@@ -36,6 +37,16 @@ function App() {
           <Route path="/manage-books" element={<ManageBooks />} />
           <Route path="/about" element={<About />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/books" element={<ProtectedRoute><Books /></ProtectedRoute>} />
+          <Route path="/programming" element={<ProtectedRoute><Programming /></ProtectedRoute>} />
+          <Route path="/authors" element={<ProtectedRoute><Authors /></ProtectedRoute>} />
+          <Route path="/books/:id" element={<ProtectedRoute><BookDetails /></ProtectedRoute>} />
+          <Route path="/read/:id" element={<ProtectedRoute><ReadBook /></ProtectedRoute>} />
+          <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
+          <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
+          <Route path="/manage-books" element={<ProtectedRoute><ManageBooks /></ProtectedRoute>} />
+          <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
