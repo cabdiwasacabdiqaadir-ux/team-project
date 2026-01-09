@@ -16,6 +16,9 @@ const Navbar = () => {
         { to: '/authors', label: 'Authors' },
         { to: '/library', label: 'My Library' },
         { to: '/about', label: 'About' },
+
+
+     
     ];
 
     const activeLink = "text-blue-600 font-semibold";
@@ -50,6 +53,9 @@ const Navbar = () => {
                                     {wishlistItems.length}
                                 </span>
                             )}
+                        </Link>
+                        <Link to="/auth" className="text-sm bg-indigo-600 text-white px-3 py-1 rounded-full hover:bg-indigo-700">
+                            Sign In
                         </Link>
                         <Link to="/manage-books" className="text-sm bg-gray-100 px-3 py-1 rounded-full hover:bg-gray-200">
                             Admin
@@ -91,6 +97,9 @@ const Navbar = () => {
                         ))}
                         <Link to="/manage-books" onClick={toggleMenu} className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-50">
                             Manage Books (Admin)
+                        </Link>
+                        <Link to="/auth" onClick={toggleMenu} className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-50">
+                            Sign In
                         </Link>
                     </div>
                 </div>

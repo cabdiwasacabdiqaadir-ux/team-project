@@ -14,6 +14,9 @@ import Library from './pages/Library';
 import ManageBooks from './pages/ManageBooks';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import Auth from './pages/Auth';
+
+
 
 function App() {
   return (
@@ -32,6 +35,7 @@ function App() {
           <Route path="/library" element={<Library />} />
           <Route path="/manage-books" element={<ManageBooks />} />
           <Route path="/about" element={<About />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
