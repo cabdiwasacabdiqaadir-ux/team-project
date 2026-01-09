@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-// Pages
 import Home from './pages/Home';
 import Books from './pages/Books';
 import Programming from './pages/Programming';
@@ -14,28 +13,31 @@ import Library from './pages/Library';
 import ManageBooks from './pages/ManageBooks';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import Auth from './pages/Auth';
+import ProtectedRoute from './components/ProtectedRoute';
+import Navbar1 from './components/Navbar';
 
 function App() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-gray-900">
       <Navbar />
-
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/books" element={<Books />} />
-          <Route path="/programming" element={<Programming />} />
-          <Route path="/authors" element={<Authors />} />
-          <Route path="/books/:id" element={<BookDetails />} />
-          <Route path="/read/:id" element={<ReadBook />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/library" element={<Library />} />
-          <Route path="/manage-books" element={<ManageBooks />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/books" element={<ProtectedRoute><Books /></ProtectedRoute>} />
+          <Route path="/programming" element={<ProtectedRoute><Programming /></ProtectedRoute>} />
+          <Route path="/authors" element={<ProtectedRoute><Authors /></ProtectedRoute>} />
+          <Route path="/books/:id" element={<ProtectedRoute><BookDetails /></ProtectedRoute>} />
+          <Route path="/read/:id" element={<ProtectedRoute><ReadBook /></ProtectedRoute>} />
+          <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
+          <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
+          <Route path="/manage-books" element={<ProtectedRoute><ManageBooks /></ProtectedRoute>} />
+          <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
+          <Route path="/Navbar" element={<ProtectedRoute><Navbar1 /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-
       <Footer />
     </div>
   );

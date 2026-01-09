@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 import { ArrowRight, Book, Code, Globe } from 'lucide-react';
 import BookCard from '../components/BookCard';
 
-const Home = () => {
+ function Home () {
     const books = useSelector(state => state.books.books);
     const featuredBooks = books.slice(0, 4);
-
     return (
         <div className="space-y-16 pb-10">
             {/* Hero Section */}
