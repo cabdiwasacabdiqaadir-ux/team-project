@@ -43,7 +43,7 @@ const Footer = () => {
                 </div>
 
                 <div className="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm">
-                    &copy; {new Date().getFullYear()} OpenLib. All rights reserved.
+                    &copy; {new Date().getFullYear()} Maanso. All rights reserved.
                 </div>
             </div>
         </footer>
