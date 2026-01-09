@@ -17,7 +17,7 @@ const Home = () => {
                     alt="Library"
                     className="absolute inset-0 w-full h-full object-cover opacity-30"
                 />
-                <div className="relative z-20 container mx-auto px-6 py-24 text-center md:text-left">
+                <div className="relative z-20 container mx-auto px-7 py-24 text-center md:text-left">
                     <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
                         Discover Your Next <br /> Great Read
                     </h1>
