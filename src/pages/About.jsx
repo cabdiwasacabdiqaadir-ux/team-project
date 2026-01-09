@@ -4,9 +4,9 @@ const About = () => {
     return (
         <div className="max-w-4xl mx-auto space-y-12">
             <section className="text-center py-12">
-                <h1 className="text-4xl font-bold text-gray-900 mb-6">About OpenLib</h1>
+                <h1 className="text-4xl font-bold text-gray-900 mb-6">About maamso</h1>
                 <p className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                    We believe in the power of knowledge and the joy of reading. OpenLib is designed to make books accessible, manageable, and enjoyable for everyone.
+                    We believe in the power of knowledge and the joy of reading. Maansois designed to make books accessible, manageable, and enjoyable for everyone.
                 </p>
             </section>
 
