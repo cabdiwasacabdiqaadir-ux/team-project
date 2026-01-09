@@ -1,5 +1,5 @@
 import { Github, Twitter, Linkedin } from 'lucide-react';
-
+import { Link } from 'react-router-dom';
 const Footer = () => {
     return (
         <footer className="bg-gray-900 text-white pt-10 pb-6">
@@ -14,30 +14,40 @@ const Footer = () => {
 
                     <div>
                         <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-                        <ul className="space-y-2 text-gray-400 text-sm">
-                            <li><a href="#" className="hover:text-white">Home</a></li>
-                            <li><a href="#" className="hover:text-white">Books</a></li>
-                            <li><a href="#" className="hover:text-white">About Us</a></li>
-                            <li><a href="#" className="hover:text-white">Contact</a></li>
-                        </ul>
+                       <ul className="space-y-2 text-gray-400 text-sm">
+  <li><Link to="/" className="hover:text-white">Home</Link></li>
+  <li><Link to="/books" className="hover:text-white">Books</Link></li>
+  <li><Link to="/about" className="hover:text-white">About Us</Link></li>
+  <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
+</ul>
+
                     </div>
 
                     <div>
                         <h4 className="text-lg font-semibold mb-4">Categories</h4>
-                        <ul className="space-y-2 text-gray-400 text-sm">
-                            <li><a href="#" className="hover:text-white">Programming</a></li>
-                            <li><a href="#" className="hover:text-white">Fiction</a></li>
-                            <li><a href="#" className="hover:text-white">History</a></li>
-                            <li><a href="#" className="hover:text-white">Science</a></li>
-                        </ul>
+                      <ul className="space-y-2 text-gray-400 text-sm">
+  <li><Link to="/category/programming" className="hover:text-white">Programming</Link></li>
+  <li><Link to="/category/fiction" className="hover:text-white">Fiction</Link></li>
+  <li><Link to="/category/history" className="hover:text-white">History</Link></li>
+  <li><Link to="/category/science" className="hover:text-white">Science</Link></li>
+</ul>
                     </div>
 
                     <div>
                         <h4 className="text-lg font-semibold mb-4">Connect</h4>
                         <div className="flex space-x-4">
-                            <a href="#" className="text-gray-400 hover:text-white"><Github className="h-6 w-6" /></a>
-                            <a href="#" className="text-gray-400 hover:text-white"><Twitter className="h-6 w-6" /></a>
-                            <a href="#" className="text-gray-400 hover:text-white"><Linkedin className="h-6 w-6" /></a>
+                      <div className="flex space-x-4">
+  <a href="https://github.com" target="_blank" className="text-gray-400 hover:text-white">
+    <Github className="h-6 w-6" />
+  </a>
+  <a href="https://twitter.com" target="_blank" className="text-gray-400 hover:text-white">
+    <Twitter className="h-6 w-6" />
+  </a>
+  <a href="https://linkedin.com" target="_blank" className="text-gray-400 hover:text-white">
+    <Linkedin className="h-6 w-6" />
+  </a>
+</div>
+
                         </div>
                     </div>
                 </div>
