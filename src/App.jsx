@@ -17,8 +17,6 @@ import NotFound from './pages/NotFound';
 import Auth from './pages/Auth';
 import ProtectedRoute from './components/ProtectedRoute';
 
-
-
 function App() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-gray-900">
@@ -26,17 +24,59 @@ function App() {
 
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Routes>
+          {/* AUTH */}
           <Route path="/auth" element={<Auth />} />
-          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-          <Route path="/books" element={<ProtectedRoute><Books /></ProtectedRoute>} />
-          <Route path="/programming" element={<ProtectedRoute><Programming /></ProtectedRoute>} />
-          <Route path="/authors" element={<ProtectedRoute><Authors /></ProtectedRoute>} />
-          <Route path="/books/:id" element={<ProtectedRoute><BookDetails /></ProtectedRoute>} />
-          <Route path="/read/:id" element={<ProtectedRoute><ReadBook /></ProtectedRoute>} />
-          <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
-          <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
-          <Route path="/manage-books" element={<ProtectedRoute><ManageBooks /></ProtectedRoute>} />
-          <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
+
+          {/* PUBLIC */}
+          <Route path="/" element={<Home />} />
+          <Route path="/books" element={<Books />} />
+          <Route path="/programming" element={<Programming />} />
+          <Route path="/authors" element={<Authors />} />
+          <Route path="/about" element={<About />} />
+
+          {/* PROTECTED */}
+          <Route
+            path="/books/:id"
+            element={
+              <ProtectedRoute>
+                <BookDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/read/:id"
+            element={
+              <ProtectedRoute>
+                <ReadBook />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/wishlist"
+            element={
+              <ProtectedRoute>
+                <Wishlist />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/library"
+            element={
+              <ProtectedRoute>
+                <Library />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/manage-books"
+            element={
+              <ProtectedRoute>
+                <ManageBooks />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

@@ -1,8 +1,14 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
   const isAuth = localStorage.getItem("isAuth");
-  return isAuth === "true" ? children : <Navigate to="/auth" />;
+  const location = useLocation(); // Save current route
+
+  return isAuth ? (
+    children
+  ) : (
+    <Navigate to="/auth" state={{ from: location }} replace />
+  );
 }
 
 export default ProtectedRoute;
